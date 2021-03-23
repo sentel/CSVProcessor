@@ -1,0 +1,17 @@
+x. Download files using CURL power-shell rest web request
+	- pass ADMINISTRATIVE DOMAIN and DATE RANGE to the power-shell file and run the batch file
+
+x. Split files into 10MB files
+	- split files keeping the HEADER
+
+x. Rename files using given criteria
+	- start with SITE NUMBER then DATE RANGE when renaming the files
+
+x. Move files into a specific location 
+	- \\FS01\RAID\UC\RAWDATA.PND is the location where these files needs to be moved to
+
+x. Add job to queue based on site number
+	- access the http://ucadmin/Home/Index using given credentials
+		UserName: Gary
+		Password: GMB1gmb2gmb3
+	- add SITE NUMBER to the text box and then click ADD button

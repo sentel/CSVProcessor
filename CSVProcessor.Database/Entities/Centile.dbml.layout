@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Centile">
+  <DataContextMoniker Name="/CentileDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4e12bdad-ed5e-4908-bef7-0f8fb505fe55" absoluteBounds="0.5, 0.5, 2.375, 1.9631982421875">
+      <DataClassMoniker Name="/CentileDataContext/tbl_company" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5282a307-8483-46f7-a8cd-d9cdacf06ea4" absoluteBounds="0.515, 0.96, 2.3449999999999998, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a968270b-bf1f-4ef0-b297-00957df89f58" absoluteBounds="3.375, 0.5, 2.375, 4.4631168619791666">
+      <DataClassMoniker Name="/CentileDataContext/tbl_site" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5608775a-7b54-45ff-89a1-f16a2f6a269b" absoluteBounds="3.39, 0.96, 2.3449999999999998, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

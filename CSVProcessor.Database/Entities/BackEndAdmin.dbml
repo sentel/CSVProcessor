@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BackendAdmin_dev" Class="BackEndAdminDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SERVICEDESK04\SQLEXPRESS;Initial Catalog=BackendAdmin_dev;Integrated Security=True" SettingsObjectName="CSVProcessor.Database.Properties.Settings" SettingsPropertyName="BackendAdmin_devConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_Company" Member="tbl_Companies">
+    <Type Name="tbl_Company">
+      <Column Name="tbl_CompanyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Company_Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_AddressId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Company_Logo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Company_Siteaccess" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="Parent_CompanyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Company_Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Collection_ProcessId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Server_FTP_TypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbl_Company_tbl_Company" Member="tbl_Companies" ThisKey="tbl_CompanyId" OtherKey="Parent_CompanyId" Type="tbl_Company" />
+      <Association Name="tbl_Company_tbl_Site" Member="tbl_Sites" ThisKey="tbl_CompanyId" OtherKey="tbl_companyId" Type="tbl_Site" />
+      <Association Name="tbl_Company_tbl_Company" Member="tbl_Company1" ThisKey="Parent_CompanyId" OtherKey="tbl_CompanyId" Type="tbl_Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Server_FTP_Account" Member="tbl_Server_FTP_Accounts">
+    <Type Name="tbl_Server_FTP_Account">
+      <Column Name="tbl_Server_FTP_AccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_ServerId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Server_FTP_Account_Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Server_FTP_Account_Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="tbl_Server_FTP_Account_tbl_Site" Member="tbl_Sites" ThisKey="tbl_Server_FTP_AccountId" OtherKey="tbl_Server_FTP_AccountId_Local" Type="tbl_Site" />
+      <Association Name="tbl_Server_FTP_Account_tbl_Site1" Member="tbl_Sites1" ThisKey="tbl_Server_FTP_AccountId" OtherKey="tbl_Server_FTP_AccountId_Remote" Type="tbl_Site" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Site_Enterprise" Member="tbl_Site_Enterprises">
+    <Type Name="tbl_Site_Enterprise">
+      <Column Name="tbl_Site_EnterpriseId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_SiteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Site_Enterprise_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Site_Enterprise_Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Site_tbl_Site_Enterprise" Member="tbl_Site" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Site_XSI_Details" Member="tbl_Site_XSI_Details">
+    <Type Name="tbl_Site_XSI_Detail">
+      <Column Name="tbl_Site_XSI_DetailsId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_Company_XSI_MasterDetailsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_SiteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Site_XSI_Username" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="tbl_Site_XSI_Password" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="tbl_Site_XSI_Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tbl_Site_tbl_Site_XSI_Detail" Member="tbl_Site" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_User" Member="tbl_Users">
+    <Type Name="tbl_User">
+      <Column Name="tbl_UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_User_CredentialsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_User_PermissionsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="User_Title" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Column Name="User_Forename" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Surname" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_FirstTimeLogin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_CreatedDatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="User_CreatedBy_UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbl_User_tbl_User" Member="tbl_Users" ThisKey="tbl_UserId" OtherKey="User_CreatedBy_UserId" Type="tbl_User" />
+      <Association Name="tbl_User_tbl_User" Member="tbl_User1" ThisKey="User_CreatedBy_UserId" OtherKey="tbl_UserId" Type="tbl_User" IsForeignKey="true" />
+      <Association Name="tbl_User_Credential_tbl_User" Member="tbl_User_Credential" ThisKey="tbl_User_CredentialsId" OtherKey="tbl_User_CredentialsId" Type="tbl_User_Credential" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_User_Credentials" Member="tbl_User_Credentials">
+    <Type Name="tbl_User_Credential">
+      <Column Name="tbl_User_CredentialsId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="User_Credentials_Username" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Credentials_Password" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Credentials_EmailAddress" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="User_Credentials_SecurityQuestion" Type="System.String" DbType="VarChar(40)" CanBeNull="true" />
+      <Column Name="User_Credentials_SecurityAnswer" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="User_Credentials_PasswordMustBeChanged" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_Credentials_PasswordExpiryDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="User_Credentials_FirstLogin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_Credentials_Salt" Type="System.String" DbType="VarChar(35)" CanBeNull="true" />
+      <Association Name="tbl_User_Credential_tbl_User" Member="tbl_Users" ThisKey="tbl_User_CredentialsId" OtherKey="tbl_User_CredentialsId" Type="tbl_User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Job_PND" Member="tbl_Job_PNDs">
+    <Type Name="tbl_Job_PND">
+      <Column Name="tbl_Job_PNDId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_BatchFileId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_SiteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Job_PND_CreatedTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_Site_tbl_Job_PND" Member="tbl_Site" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Site" Member="tbl_Sites">
+    <Type Name="tbl_Site">
+      <Column Name="tbl_SiteId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_companyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_addressId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_timezonesId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Site_name" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Site_active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Site_MainLineNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="tbl_Server_DBDetailsId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Server_FTP_AccountId_Local" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Server_FTP_AccountId_Remote" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Server_ArchiveFilesId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_ContactFrequencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tbl_Site_tbl_Site_Enterprise" Member="tbl_Site_Enterprises" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site_Enterprise" />
+      <Association Name="tbl_Site_tbl_Site_XSI_Detail" Member="tbl_Site_XSI_Details" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site_XSI_Detail" />
+      <Association Name="tbl_Site_tbl_Job_PND" Member="tbl_Job_PNDs" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Job_PND" />
+      <Association Name="tbl_Site_tbl_Site_UnitType" Member="tbl_Site_UnitTypes" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site_UnitType" />
+      <Association Name="tbl_Company_tbl_Site" Member="tbl_Company" ThisKey="tbl_companyId" OtherKey="tbl_CompanyId" Type="tbl_Company" IsForeignKey="true" />
+      <Association Name="tbl_Server_FTP_Account_tbl_Site" Member="tbl_Server_FTP_Account" ThisKey="tbl_Server_FTP_AccountId_Local" OtherKey="tbl_Server_FTP_AccountId" Type="tbl_Server_FTP_Account" IsForeignKey="true" />
+      <Association Name="tbl_Server_FTP_Account_tbl_Site1" Member="tbl_Server_FTP_Account1" ThisKey="tbl_Server_FTP_AccountId_Remote" OtherKey="tbl_Server_FTP_AccountId" Type="tbl_Server_FTP_Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Site_UnitType" Member="tbl_Site_UnitTypes">
+    <Type Name="tbl_Site_UnitType">
+      <Column Name="tbl_Site_UnitTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="tbl_SiteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_UnitTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Site_UnitType_ValidFrom" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="tbl_Site_UnitType_ValidTo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_Site_tbl_Site_UnitType" Member="tbl_Site" ThisKey="tbl_SiteId" OtherKey="tbl_SiteId" Type="tbl_Site" IsForeignKey="true" />
+      <Association Name="tbl_UnitType_tbl_Site_UnitType" Member="tbl_UnitType" ThisKey="tbl_UnitTypeId" OtherKey="tbl_UnitTypeId" Type="tbl_UnitType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_UnitType" Member="tbl_UnitTypes">
+    <Type Name="tbl_UnitType">
+      <Column Name="tbl_UnitTypeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UnitType_SerialClass" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="UnitType_Name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="UnitType_Description" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
+      <Association Name="tbl_UnitType_tbl_Site_UnitType" Member="tbl_Site_UnitTypes" ThisKey="tbl_UnitTypeId" OtherKey="tbl_UnitTypeId" Type="tbl_Site_UnitType" />
+    </Type>
+  </Table>
+</Database>

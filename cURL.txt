@@ -1,0 +1,21 @@
+LOGIN
+=====
+Username:	SuperGabriel
+Password:	SuperGabriel@2019
+RootPath:	Constants.ROOT_PATH
+CookieFile:	cookie.csv
+FirstCurl:	curl -k -vu {Username}:{Password} -X POST -H "X-Application: 3rdParty" https://webadmin.td90.centile-dev.com/restletrouter/v1/service/Login -c {RootPath}\{CookieFile}
+
+GET DOMAINS
+===========
+SessionId:	to be taken from CookieFile
+SecondCurl:	curl -k -v -H 'Cookie: thirdParty_SESSIONID=tobetakenfromCookieFile' -H "X-Application: 3rdParty" https://webadmin.td90.centile-dev.com/restletrouter/v1/3rdParty/AdmtiveDomain
+
+GET FILES
+=========
+SessionId:	to be taken from CookieFile
+DomainId:	to be taken from CookieFile
+Date:		to be taken from CookieFile
+RootPath:	Constants.ROOT_PATH
+CsvFie:		Date.csv
+ThirdCurl:	curl -k -v -H "Cookie: thirdParty_SESSIONID=tobetakenfromCookieFile" -H "X-Application: 3rdParty" https://webadmin.td90.centile-dev.com/restletrouter/v1/3rdParty/CallRecord/{tobetakenfromCookieFile}.?day={tobetakenfromCookieFile} -o {RootPath}/{Csv\File}

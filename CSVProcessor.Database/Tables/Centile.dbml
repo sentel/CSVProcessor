@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Centile" Class="CentileDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.10.50;Initial Catalog=Centile;Persist Security Info=True;User ID=sa" SettingsObjectName="CSVProcessor.Database.Properties.Settings" SettingsPropertyName="CentileConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_company" Member="tbl_companies">
+    <Type Name="tbl_company">
+      <Column Name="company_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="company_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="branding_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_company_level_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Centile_Community_id_FK" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_site" Member="tbl_sites">
+    <Type Name="tbl_site">
+      <Column Name="site_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="site_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="site_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="site_userlimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_lastinfeedmodifieddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="site_lastinfeeddirectory" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="site_lastinfeedreadrow" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="site_lastoutfeedmodifieddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="site_lastoutfeeddirectory" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="site_lastoutfeedreadrow" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="company_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_datadropfrequency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Site_termsandconditions" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Site_LyncSwitch" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Site_SwitchName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Site_LyncDomain" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tbl_Centile_Community_Id" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_infeed" Member="tbl_infeeds">
+    <Type Name="tbl_infeed">
+      <Column Name="infeed_site_id_FK" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="infeed_versionnum" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="infeed_startdatetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="infeed_pabxstartdatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="infeed_firstextension" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="infeed_secondextension" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="infeed_callednumber" Type="System.String" DbType="VarChar(18)" CanBeNull="true" />
+      <Column Name="infeed_accountnumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="infeed_originatortrunkgroup" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="infeed_originatortrunknumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="infeed_connectduration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_ringduration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_waitduration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_callingnumber" Type="System.String" DbType="VarChar(35) NOT NULL" CanBeNull="false" />
+      <Column Name="infeed_destinationpointer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_codelength" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="infeed_calltype" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="infeed_flags" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_installationid" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="infeed_contactid" Type="System.String" DbType="VarChar(254) NOT NULL" CanBeNull="false" />
+      <Column Name="infeed_allocationtype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_destinationtype_int" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="infeed_callingPartition" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="infeed_calledPartition" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="infeed_QOS_Callid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Infeed_OQS_SequenceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_calledDeviceID" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="infeed_callingDeviceID" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="infeed_QOS_callLeg_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="infeed_endDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="infeed_calledname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="infeed_callername" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="infeed_departmentname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="infeed_communityId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_outfeed" Member="tbl_outfeeds">
+    <Type Name="tbl_outfeed">
+      <Column Name="outfeed_site_id_FK" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="outfeed_versionnum" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="outfeed_startdatetime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="outfeed_pabxstartdatetime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="outfeed_extensionnumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="outfeed_trunkaccesscode1" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="outfeed_trunkaccesscode2" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="outfeed_carrieraccesscode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="outfeed_dialleddigits" Type="System.String" DbType="VarChar(35)" CanBeNull="true" />
+      <Column Name="outfeed_accountcode" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="outfeed_routename" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="outfeed_hohduration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_connectedduration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_calltype" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="outfeed_destinationpointer" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_codelength" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="outfeed_originatingtrunkgroup" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="outfeed_originatingtrunknumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="outfeed_outgoingtrunkgroup" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="outfeed_outgoingtrunknumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="outfeed_cost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_alternatecost" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_flags" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_installationid" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="outfeed_contactid" Type="System.String" DbType="VarChar(254)" CanBeNull="true" />
+      <Column Name="outfeed_padding" Type="System.Char" DbType="Char(1)" CanBeNull="true" />
+      <Column Name="outfeed_allocationtype" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_destinationtype_int" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="outfeed_callingPartition" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="outfeed_calledPartition" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="outfeed_QOS_Callid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_OQS_SequenceID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_calledDeviceID" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="outfeed_callingDeviceID" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="outfeed_QOS_callLeg_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_endDateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="outfeed_carrier_int" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outfeed_callername" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="outfeed_departmentname" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="outfeed_communityId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Directory" Member="Directories">
+    <Type Name="Directory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SiteId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Extension" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_branding" Member="tbl_brandings">
+    <Type Name="tbl_branding">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SiteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Url" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Colors" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Logo" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_email" Member="tbl_emails">
+    <Type Name="tbl_email">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Host" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Port" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

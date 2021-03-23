@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11.25" name="Centile">
+  <DataContextMoniker Name="/CentileDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4e12bdad-ed5e-4908-bef7-0f8fb505fe55" absoluteBounds="0.5, 0.5, 2.375, 1.9631982421875">
+      <DataClassMoniker Name="/CentileDataContext/tbl_company" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5282a307-8483-46f7-a8cd-d9cdacf06ea4" absoluteBounds="0.515, 0.96, 2.3449999999999998, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a968270b-bf1f-4ef0-b297-00957df89f58" absoluteBounds="3.375, 0.5, 2.375, 4.4631168619791666">
+      <DataClassMoniker Name="/CentileDataContext/tbl_site" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5608775a-7b54-45ff-89a1-f16a2f6a269b" absoluteBounds="3.39, 0.96, 2.3449999999999998, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a6ce311c-6ea1-4c16-ac70-34776a35c349" absoluteBounds="6.25, 0.5, 2, 7.5399397786458326">
+      <DataClassMoniker Name="/CentileDataContext/tbl_infeed" />
+      <nestedChildShapes>
+        <elementListCompartment Id="70293276-1d36-4a01-b87e-2718f63524e4" absoluteBounds="6.265, 0.96, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="792f8c8f-5819-4f03-8e64-93fdf14cbb23" absoluteBounds="8.5, 0.5, 2, 8.6937483723958326">
+      <DataClassMoniker Name="/CentileDataContext/tbl_outfeed" />
+      <nestedChildShapes>
+        <elementListCompartment Id="30cfc056-e9cc-47f9-ba02-0d4cd2a4732f" absoluteBounds="8.515, 0.96, 1.9700000000000002, 8.1337483723958321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6d9aa397-b507-44e5-a618-fd7f22aeedc3" absoluteBounds="3.625, 5.125, 2, 1.3862939453125">
+      <DataClassMoniker Name="/CentileDataContext/Directory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="908b5d06-ba99-46b5-8649-10b23efd7904" absoluteBounds="3.64, 5.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="73fe2b8c-fb67-4e66-afe3-077d2c438cb2" absoluteBounds="1.875, 8.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/CentileDataContext/tbl_branding" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dfcaa021-eaac-4514-9904-a68834cbd82e" absoluteBounds="1.8900000000000001, 8.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="831d3fc6-9193-46d2-ba01-135129cac2e9" absoluteBounds="4.625, 8.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/CentileDataContext/tbl_email" />
+      <nestedChildShapes>
+        <elementListCompartment Id="956fb4f8-1cd2-483e-a348-c0164ce0d489" absoluteBounds="4.64, 9.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

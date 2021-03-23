@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Centile_dev" Class="CentileDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SERVICEDESK04\SQLEXPRESS;Initial Catalog=Centile_dev;Integrated Security=True" SettingsObjectName="CSVProcessor.Database.Properties.Settings" SettingsPropertyName="Centile_devConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_company" Member="tbl_companies">
+    <Type Name="tbl_company">
+      <Column Name="company_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="company_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="branding_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_company_level_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tbl_Centile_Community_id_FK" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_site" Member="tbl_sites">
+    <Type Name="tbl_site">
+      <Column Name="site_id_PK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="site_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="site_type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="site_userlimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_lastinfeedmodifieddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="site_lastinfeeddirectory" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="site_lastinfeedreadrow" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="site_lastoutfeedmodifieddate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="site_lastoutfeeddirectory" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="site_lastoutfeedreadrow" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="company_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="address_id_PK" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="site_datadropfrequency" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Site_termsandconditions" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Site_LyncSwitch" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Site_SwitchName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Site_LyncDomain" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="tbl_Centile_Community_Id" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

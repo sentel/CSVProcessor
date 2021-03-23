@@ -1,0 +1,15 @@
+TASKS
+=====
+
+v	1. Get Session Id
+v	2. Get Domains
+v	3. Check if two emails has been sent already to the user (YES - Exit / NO - Continue).
+v	4a. Check if files for yesterday has been pulled (check archive folder)
+x		Check if files for yesterday has been processed (check table)
+x	4b. Check if files for day before yesterday has been pulled (check archive folder)
+x		Check if files for day before yesterday has been processed (check table)
+v	4. Log this into attempts file
+v	5. Update database with new sites (if any)
+v	6. Combine pulled files by site and day
+v	7. Copy file to the UC\RAWDATA.PND and UC\RAWDATA.ARC
+v	8. Create a job into BackendAdmin table
