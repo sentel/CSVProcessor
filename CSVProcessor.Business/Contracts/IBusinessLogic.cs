@@ -10,6 +10,10 @@
 
         ILogger GetDomains();
 
+        ILogger CleanUp();
+
+        ILogger UpdateDatabase();
+        
         ILogger CreateDirectoryStructure();
 
         ILogger GetFiles();
@@ -31,8 +35,6 @@
         ILogger DelayProcess();
 
         ILogger MoveFiles();
-
-        ILogger UpdateDatabase();
 
         ILogger AddJob();
 

@@ -15,7 +15,10 @@ namespace CSVProcessor.Business.Services
             this.streams = streams;
         }
 
-        public bool WereOriginalFilesDownloaded(CurlDetails details) => details.NetworkFiles.Any(File.Exists);
+        public bool WereOriginalFilesDownloaded(CurlDetails details)
+        {
+            return details.NetworkFiles.Any(File.Exists);
+        }
 
         public IEnumerable<string> ReadAttemptsFile(CurlDetails details)
         {
@@ -25,10 +28,26 @@ namespace CSVProcessor.Business.Services
                        : new List<string>();
         }
 
-        public List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels, CurlDetails details)
+        public bool Clean(string rootPath,string topLevel)
+        {
+            var fullPath = Path.Combine(rootPath, topLevel);
+            var files = Directory.GetFiles(fullPath);
+            foreach (var file in files)
+            {
+                File.Delete(file);
+            }
+
+            var remainingFiles = Directory.GetFiles(fullPath);
+            return !remainingFiles.Any();
+        }
+
+        public List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels)
         {
             Directories = new List<DirectoryInfo>();
-            var directories = topLevels.Select(topLevel => Constants.SetDirectory(topLevel, details.Yesterday)).Select(Directory.CreateDirectory);
+            var directories = topLevels
+                             .Select(Constants.SetDirectory)
+                             .Select(Directory.CreateDirectory);
+
             Directories.AddRange(directories);
             return Directories;
         }
@@ -83,7 +102,7 @@ namespace CSVProcessor.Business.Services
             {
                 foreach (var siteNumber in details.SiteNumbers
                                                   .Where(siteNumber => currentFile.GetAfter("\\")
-                                                                                  .StartsWith(siteNumber.ToString()) && 
+                                                                                  .StartsWith(siteNumber.ToString()) &&
                                                                        IsNotEmpty(currentFile)))
                 {
                     File.Copy(currentFile, Constants.UncPaths[0] + "\\" + currentFile.GetAfter("\\"), true);

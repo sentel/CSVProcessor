@@ -25,8 +25,8 @@ namespace CSVProcessor.Business.Helpers
         public static string GetAttemptsFilename(CurlDetails details) =>
             Path.Combine(ROOT_PATH, details.Directory.Name, $"{details.Yesterday:yyyy-MM-dd}", $"{details.Yesterday:yy-MM-dd}-{details.DomainId} attempts.txt");
 
-        public static string SetDirectory(string topLevel, DateTime yesterday) =>
-            Path.Combine(ROOT_PATH, topLevel, yesterday.ToString("yyyy-MM-dd"));
+        public static string SetDirectory(string topLevel) =>
+            Path.Combine(ROOT_PATH, topLevel);
 
         public static string GetOriginalFile(CurlDetails details) =>
             Path.Combine(ROOT_PATH, $"{details.Directory.Name}", $"{details.Yesterday:yyyy-MM-dd}", $"{details.Yesterday:yy-MM-dd}-{details.DomainId}.csv");

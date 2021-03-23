@@ -115,11 +115,30 @@ namespace CSVProcessor.Business
             return logger;
         }
 
+        public ILogger CleanUp()
+        {
+            Index++;
+            var topLevel = Domains.Where(IsTopLevel).Select(domain => domain.DomainName).FirstOrDefault();
+            var isCleaned = fileProcessor.Clean(Constants.ROOT_PATH, topLevel);
+            if (isCleaned)
+            {
+                logger.Success = $"{Index}:\tDirectory has been cleaned.";
+            }
+            else
+            {
+                logger.Error = $"{Index}\t:Directory has not been cleaned.";
+            }
+
+            var state = GetLoggerState();
+            logger.AddLog(state);
+            return logger;
+        }
+
         public ILogger CreateDirectoryStructure()
         {
             Index++;
             var topLevels = Domains.Where(IsTopLevel).Select(domain => domain.DomainName).ToList();
-            Directories = fileProcessor.CreateDirectory(topLevels, curlDetails);
+            Directories = fileProcessor.CreateDirectory(topLevels);
 
             logger.Success = $"{Index}:\tDirectory structure created for {curlDetails.Yesterday:d}";
             var state = GetLoggerState();

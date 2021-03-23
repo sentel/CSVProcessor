@@ -10,7 +10,9 @@ namespace CSVProcessor.Business.Contracts
 
         IEnumerable<string> ReadAttemptsFile(CurlDetails details);
 
-        List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels, CurlDetails details);
+        bool Clean(string rootPath, string topLevel);
+
+        List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels);
 
         bool IsOriginalFileRead(string originalFile);
 
@@ -21,5 +23,6 @@ namespace CSVProcessor.Business.Contracts
         void SetAttemptsFile(CurlDetails details);
 
         string SetOriginalFile(CurlDetails details, string file);
+        
     }
 }
