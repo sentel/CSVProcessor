@@ -91,8 +91,7 @@ namespace CSVProcessor.Business.Services
 
         public List<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details)
         {
-            var path = $"{Constants.ROOT_PATH}\\{directory.Name}\\{details.Yesterday:yyyy-MM-dd}";
-            var currentFiles = Directory.EnumerateFiles(path, "*.csv", SearchOption.TopDirectoryOnly).ToList();
+            var currentFiles = Directory.EnumerateFiles($"{Constants.ROOT_PATH}\\{directory.Name}", "*.csv", SearchOption.TopDirectoryOnly).ToList();
             if (!currentFiles.Any())
             {
                 return currentFiles;

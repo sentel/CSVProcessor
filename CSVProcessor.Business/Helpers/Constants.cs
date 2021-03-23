@@ -23,13 +23,13 @@ namespace CSVProcessor.Business.Helpers
             Path.Combine(FixedDrives[0], ProgramFilesPath, CurlPath, "bin", "curl.exe");
 
         public static string GetAttemptsFilename(CurlDetails details) =>
-            Path.Combine(ROOT_PATH, details.Directory.Name, $"{details.Yesterday:yyyy-MM-dd}", $"{details.Yesterday:yy-MM-dd}-{details.DomainId} attempts.txt");
+            Path.Combine(ROOT_PATH, details.Directory.Name, $"{details.Yesterday:yy-MM-dd}-{details.DomainId} attempts.txt");
 
         public static string SetDirectory(string topLevel) =>
             Path.Combine(ROOT_PATH, topLevel);
 
         public static string GetOriginalFile(CurlDetails details) =>
-            Path.Combine(ROOT_PATH, $"{details.Directory.Name}", $"{details.Yesterday:yyyy-MM-dd}", $"{details.Yesterday:yy-MM-dd}-{details.DomainId}.csv");
+            Path.Combine(ROOT_PATH, $"{details.Directory.Name}", $"{details.Yesterday:yy-MM-dd}-{details.DomainId}.csv");
 
         public static List<string> GetNetworkYesterdayFiles(CurlDetails details)
         {
@@ -70,6 +70,6 @@ namespace CSVProcessor.Business.Helpers
 
         private static string CurlPath => "cURL";
 
-        private static string MyDocumentsPath => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments, Environment.SpecialFolderOption.None);
+        private static string MyDocumentsPath => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     }
 }
