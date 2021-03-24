@@ -12,13 +12,13 @@ namespace CSVProcessor.Business.Contracts
 
         bool Clean(string rootPath, string topLevel);
 
-        List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels);
+        DirectoryInfo CreateDirectory(string topLevel);
 
         bool IsOriginalFileRead(string originalFile);
 
-        List<string> RenameTargetFiles(DirectoryInfo directory, CurlDetails details);
+        IEnumerable<string> RenameTargetFiles(DirectoryInfo directory, CurlDetails details);
 
-        List<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details);
+        IEnumerable<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details);
 
         void SetAttemptsFile(CurlDetails details);
 

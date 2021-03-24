@@ -9,7 +9,7 @@ namespace CSVProcessor.Business.Contracts
 
         bool UpdateBackendAdmin(List<AdministrativeDomain> domains);
 
-        bool UpdateCentile(List<AdministrativeDomain> domains);
+        bool UpdateCentile(IEnumerable<AdministrativeDomain> domains);
 
         IEnumerable<int?> GetSiteNumbers(List<AdministrativeDomain> domainsWithFiles);
 

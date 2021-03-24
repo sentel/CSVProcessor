@@ -16,10 +16,7 @@ namespace CSVProcessor.Business.Services
 {
     public class ScriptProcessor : IScriptProcessor
     {
-        public ScriptProcessor(Processor encryptionProcessor)
-        {
-            this.encryptionProcessor = encryptionProcessor;
-        }
+        public ScriptProcessor(Processor encryptionProcessor) => this.encryptionProcessor = encryptionProcessor;
 
         public bool ConnectToFs01(CurlDetails details)
         {
@@ -29,7 +26,7 @@ namespace CSVProcessor.Business.Services
             var decrypted = encryptionProcessor.Decrypt(password, 1);
             var networkCredentials = new NetworkCredential(username, decrypted, details.Domain);
             var netCache = new CredentialCache();
-            netCache.Add("\\FS01", 80, "Basic", networkCredentials);
+            netCache.Add("192.168.10.150", 80, "Basic", networkCredentials);
 
             var ping = new Ping();
             var reply = ping.Send("192.168.10.150", 100);

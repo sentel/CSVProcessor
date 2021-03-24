@@ -146,9 +146,6 @@ namespace CSVProcessor
             Display();
         }
 
-        private static void Exit()
-        {
-            presentationLogic.ExitApplication();
-        }
+        private static void Exit() => presentationLogic.ExitApplication();
     }
 }

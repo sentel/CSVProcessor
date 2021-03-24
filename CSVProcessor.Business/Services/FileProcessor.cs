@@ -31,6 +31,10 @@ namespace CSVProcessor.Business.Services
         public bool Clean(string rootPath,string topLevel)
         {
             var fullPath = Path.Combine(rootPath, topLevel);
+            var doesExists = Directory.Exists(fullPath);
+            if (!doesExists) 
+                return false;
+
             var files = Directory.GetFiles(fullPath);
             foreach (var file in files)
             {
@@ -41,15 +45,11 @@ namespace CSVProcessor.Business.Services
             return !remainingFiles.Any();
         }
 
-        public List<DirectoryInfo> CreateDirectory(IEnumerable<string> topLevels)
+        public DirectoryInfo CreateDirectory(string topLevel)
         {
-            Directories = new List<DirectoryInfo>();
-            var directories = topLevels
-                             .Select(Constants.SetDirectory)
-                             .Select(Directory.CreateDirectory);
-
-            Directories.AddRange(directories);
-            return Directories;
+            var setDirectory = Constants.SetDirectory(topLevel);
+            var directory = Directory.CreateDirectory(setDirectory);
+            return directory;
         }
 
         public bool IsOriginalFileRead(string originalFile)
@@ -65,16 +65,15 @@ namespace CSVProcessor.Business.Services
             return streams.Any();
         }
 
-        public List<string> RenameTargetFiles(DirectoryInfo directory, CurlDetails details)
+        public IEnumerable<string> RenameTargetFiles(DirectoryInfo directory, CurlDetails details)
         {
             var newFiles = new List<string>();
-            var files = directory.EnumerateFiles("*.csv", SearchOption.AllDirectories);
-            var yesterdayFiles = files.Where(it => it.DirectoryName?.Contains($"{details.Yesterday:yyyy-MM-dd}") == true).ToArray();
-            for (var index = 0; index < yesterdayFiles.Length; index++)
+            var files = directory.EnumerateFiles("*.csv", SearchOption.TopDirectoryOnly).ToList();
+            for (var index = 0; index < files.Count; index++)
             {
-                var currentName = yesterdayFiles[index].Name;
+                var currentName = files[index].Name;
                 var newName = $"{details.SiteNumbers[index]}--{details.Yesterday:yyyy-MM-dd}.csv";
-                var path = Constants.ROOT_PATH + "\\" + directory.Name + "\\" + details.Yesterday.ToString("yyyy-MM-dd") + "\\";
+                var path = Constants.ROOT_PATH + "\\" + directory.Name + "\\";
 
                 if (File.Exists(path + currentName))
                 {
@@ -89,7 +88,7 @@ namespace CSVProcessor.Business.Services
             return newFiles.Any() ? newFiles : new List<string>();
         }
 
-        public List<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details)
+        public IEnumerable<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details)
         {
             var currentFiles = Directory.EnumerateFiles($"{Constants.ROOT_PATH}\\{directory.Name}", "*.csv", SearchOption.TopDirectoryOnly).ToList();
             if (!currentFiles.Any())

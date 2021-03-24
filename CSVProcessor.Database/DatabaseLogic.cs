@@ -148,7 +148,7 @@ namespace CSVProcessor.Database
             return true;
         }
 
-        public bool UpdateCentile(List<AdministrativeDomain> domains)
+        public bool UpdateCentile(IEnumerable<AdministrativeDomain> domains)
         {
             var enterprises = domains.Where(it => !IsTopLevel(it)).Where(domain => domain.DomainType.Equals("Enterprise")).ToList();
 

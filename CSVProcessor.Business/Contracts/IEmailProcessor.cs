@@ -8,6 +8,5 @@ namespace CSVProcessor.Business.Contracts
         bool IsSent { get; }
 
         void SendEmail(EmailDetails details, Dictionary<string, string> brandingDictionary);
-
     }
 }

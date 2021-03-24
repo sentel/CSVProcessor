@@ -47,7 +47,7 @@ namespace CSVProcessor.Business.Models
 
         public string CurlApplication => Constants.GetCurlCommand();
 
-        public string OriginalFile => Constants.GetOriginalFile(this);
+        public string OriginalFile => Constants.GetOriginalFile(Yesterday, Directory.Name,DomainId);
 
         public List<string> NetworkFiles
         {

@@ -137,8 +137,8 @@ namespace CSVProcessor.Business
         public ILogger CreateDirectoryStructure()
         {
             Index++;
-            var topLevels = Domains.Where(IsTopLevel).Select(domain => domain.DomainName).ToList();
-            Directories = fileProcessor.CreateDirectory(topLevels);
+            var topLevel = Domains.Where(IsTopLevel).Select(domain => domain.DomainName).FirstOrDefault();
+            DirectoryInfo = fileProcessor.CreateDirectory(topLevel);
 
             logger.Success = $"{Index}:\tDirectory structure created for {curlDetails.Yesterday:d}";
             var state = GetLoggerState();
@@ -153,7 +153,7 @@ namespace CSVProcessor.Business
             foreach (var domain in Domains)
             {
                 curlDetails.DomainId = domain.AdmtiveDomainId;
-                curlDetails.Directory = Directories.Select(it => it.Parent).FirstOrDefault();
+                curlDetails.Directory = DirectoryInfo;
                 var result = scriptProcessor.RequestFile(curlDetails).ReadToEnd();
                 var content = result.HasNoRecordForCommunity() ? "" : result;
                 var file = "";
@@ -203,12 +203,12 @@ namespace CSVProcessor.Business
 
         public ILogger SetAttemptsFile()
         {
-            var directory = Directories.Select(it => it.Parent).FirstOrDefault();
+            curlDetails.Directory = DirectoryInfo;
             foreach (var domain in Domains.Except(DomainsWithFiles))
             {
                 Index++;
                 curlDetails.DomainId = domain.AdmtiveDomainId;
-                curlDetails.Directory = directory;
+                
                 if (domain.IsTopLevel())
                 {
                     curlDetails.AttemptsFile = Constants.GetAttemptsFilename(curlDetails);
@@ -339,7 +339,7 @@ namespace CSVProcessor.Business
 
         public ILogger CheckNumberOfEmailsSent()
         {
-            curlDetails.Directory = Directories.Select(it => it.Parent).FirstOrDefault();
+            curlDetails.Directory = DirectoryInfo;
             var topLevels = Domains.Where(IsTopLevel);
 
             var count = 0;
@@ -376,7 +376,7 @@ namespace CSVProcessor.Business
             Index++;
 
             var fileDownloaded = fileProcessor.WereOriginalFilesDownloaded(curlDetails);
-            curlDetails.Directory = Directories.Select(it => it.Parent).FirstOrDefault();
+            curlDetails.Directory = DirectoryInfo;
 
             if (fileDownloaded)
             {
@@ -404,10 +404,8 @@ namespace CSVProcessor.Business
         {
             Index++;
 
-            var files = Directories
-                       .Select(it => it.Parent)
-                       .Select(directory => fileProcessor.RenameTargetFiles(directory, curlDetails))
-                       .SelectMany(it => it)
+            var files = fileProcessor.RenameTargetFiles(DirectoryInfo, curlDetails)
+                       .Select(it => it)
                        .ToList();
             if (files.Any())
             {
@@ -455,10 +453,8 @@ namespace CSVProcessor.Business
         {
             Index++;
 
-            var files = Directories
-                       .Select(it => it.Parent)
-                       .Select(directory => fileProcessor.MoveAllFiles(directory, curlDetails))
-                       .SelectMany(it => it)
+            var files = fileProcessor.MoveAllFiles(DirectoryInfo, curlDetails)
+                       .Select(it => it)
                        .ToList();
 
             if (files.Any())
@@ -557,7 +553,7 @@ namespace CSVProcessor.Business
 
         private List<AdministrativeDomain> Domains { get; set; }
 
-        private List<DirectoryInfo> Directories { get; set; }
+        private DirectoryInfo DirectoryInfo { get; set; }
 
         private List<AdministrativeDomain> DomainsWithFiles { get; set; }
 
