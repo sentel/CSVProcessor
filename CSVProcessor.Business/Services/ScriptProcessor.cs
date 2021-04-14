@@ -16,7 +16,10 @@ namespace CSVProcessor.Business.Services
 {
     public class ScriptProcessor : IScriptProcessor
     {
-        public ScriptProcessor(Processor encryptionProcessor) => this.encryptionProcessor = encryptionProcessor;
+        public ScriptProcessor(Processor encryptionProcessor)
+        {
+            this.encryptionProcessor = encryptionProcessor;
+        }
 
         public bool ConnectToFs01(CurlDetails details)
         {
@@ -25,14 +28,16 @@ namespace CSVProcessor.Business.Services
             var password = ConfigurationManager.AppSettings["FS01PS"];
             var decrypted = encryptionProcessor.Decrypt(password, 1);
             var networkCredentials = new NetworkCredential(username, decrypted, details.Domain);
-            var netCache = new CredentialCache();
-            netCache.Add("192.168.10.150", 80, "Basic", networkCredentials);
-
-            var ping = new Ping();
-            var reply = ping.Send("192.168.10.150", 100);
-            if (reply?.Status == IPStatus.Success)
+            var netCache = new CredentialCache { { "\\FS01", 80, "Basic", networkCredentials } };
+            var credential = netCache.GetCredential("\\FS01", 80, "Basic");
+            if (credential != null)
             {
-                isUpdated = true;
+                var ping = new Ping();
+                var reply = ping.Send("192.168.10.150", 100);
+                if (reply?.Status == IPStatus.Success)
+                {
+                    isUpdated = true;
+                }
             }
 
             return isUpdated;
@@ -56,9 +61,15 @@ namespace CSVProcessor.Business.Services
             }
         }
 
-        public StreamReader GetDomains(CurlDetails details) => StartProcess(details, details.DomainUrl);
+        public StreamReader GetDomains(CurlDetails details)
+        {
+            return StartProcess(details, details.DomainUrl);
+        }
 
-        public StreamReader RequestFile(CurlDetails details) => StartProcess(details, details.FileUrl);
+        public StreamReader RequestFile(CurlDetails details)
+        {
+            return StartProcess(details, details.FileUrl);
+        }
 
         //
 
