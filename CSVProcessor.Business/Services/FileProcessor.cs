@@ -4,6 +4,7 @@ using CSVProcessor.Business.Models;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 
 namespace CSVProcessor.Business.Services
@@ -98,12 +99,13 @@ namespace CSVProcessor.Business.Services
 
             foreach (var currentFile in currentFiles)
             {
-                foreach (var siteNumber in details.SiteNumbers
-                                                  .Where(siteNumber => currentFile.GetAfter("\\")
-                                                                                  .StartsWith(siteNumber.ToString()) &&
-                                                                       IsNotEmpty(currentFile)))
+                foreach (var siteNumber in details.SiteNumbers.Where(siteNumber => currentFile.GetAfter("\\").StartsWith(siteNumber.ToString()) && IsNotEmpty(currentFile)))
                 {
                     File.Copy(currentFile, Constants.UncPaths[0] + "\\" + currentFile.GetAfter("\\"), true);
+
+                    if (!Directory.Exists($"{Constants.UncPaths[1]}\\{siteNumber}")) 
+                        Directory.CreateDirectory($"{Constants.UncPaths[1]}\\{siteNumber}");
+
                     File.Copy(currentFile, Constants.UncPaths[1] + $"\\{siteNumber}\\" + currentFile.GetAfter("\\"), true);
                 }
             }
@@ -131,8 +133,6 @@ namespace CSVProcessor.Business.Services
         //
 
         private readonly List<StreamReader> streams;
-
-        private List<DirectoryInfo> Directories { get; set; }
 
         private bool IsNotEmpty(string currentFile)
         {
