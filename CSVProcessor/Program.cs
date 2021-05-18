@@ -79,7 +79,7 @@ namespace CSVProcessor
             logger = businessLogic.GetFiles();
             Display();
 
-            logger = businessLogic.GetSiteNumber();
+            logger = businessLogic.GetSiteNumbers();
             Display();
 
             logger = businessLogic.SetAttemptsFile();
@@ -100,22 +100,13 @@ namespace CSVProcessor
             logger = businessLogic.RenameFiles();
             Display();
 
-            logger = businessLogic.DelayProcess();
-            Display();
-
             logger = businessLogic.MoveFiles();
-            Display();
-
-            logger = businessLogic.DelayProcess();
             Display();
 
             logger = businessLogic.AddJob();
             Display();
 
             logger = businessLogic.UpdateExtensionDirectory();
-            Display();
-
-            logger = businessLogic.CleanUp();
             Display();
 
             presentationLogic.SetWindow((int)WindowType.Restore);

@@ -177,27 +177,24 @@ namespace CSVProcessor.Database
 
         public IEnumerable<int?> GetSiteNumbers(List<AdministrativeDomain> domainsWithFiles)
         {
-            CentileSiteNumbers = new List<int?>();
+            var sites = new List<int?>();
             if (!domainsWithFiles.Any())
             {
-                return CentileSiteNumbers;
+                return sites;
             }
 
-            foreach (var siteWithFile in domainsWithFiles
-                                        .Select(domain => details.Site.GetCentileSites().FirstOrDefault(it => it.site_name == domain.DomainName))
-                                        .Where(siteWithFile => siteWithFile != null)
-                                        .Where(siteWithFile => siteWithFile.site_number != null))
-            {
-                CentileSiteNumbers.Add(siteWithFile.site_number);
-            }
+            sites.AddRange(domainsWithFiles.Select(domain => details.Site.GetCentileSites().FirstOrDefault(it => it.site_name == domain.DomainName))
+                                           .Where(siteWithFile => siteWithFile != null)
+                                           .Where(siteWithFile => siteWithFile.site_number != null)
+                                           .Select(siteWithFile => siteWithFile.site_number));
 
-            return CentileSiteNumbers;
+            return sites;
         }
 
-        public bool AddJob(IEnumerable<AdministrativeDomain> domainsWithFiles)
+        public bool AddJob(List<string> files)
         {
-            var jobs = domainsWithFiles
-               .Select(domain => details.Site.GetAdminSites().FirstOrDefault(it => it.Site_name.Equals(domain.DomainName)))
+            var jobs = files
+               .Select(file => details.Site.GetAdminSites().FirstOrDefault(it => it.tbl_SiteId.Equals(int.Parse(file.GetBetween("\\","--")))))
                .Select(dbSite => new
                {
                    dbSite,
@@ -253,8 +250,6 @@ namespace CSVProcessor.Database
         private readonly TableDetails details;
 
         private tbl_Site BackendAdminDbSite { get; set; }
-
-        private List<int?> CentileSiteNumbers { get; set; }
 
         private static bool IsTopLevel(AdministrativeDomain domain)
         {

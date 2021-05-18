@@ -13,7 +13,7 @@ namespace CSVProcessor.Business.Contracts
 
         IEnumerable<int?> GetSiteNumbers(List<AdministrativeDomain> domainsWithFiles);
 
-        bool AddJob(IEnumerable<AdministrativeDomain> domainsWithFiles);
+        bool AddJob(List<string> files);
 
         bool UpdateExtensionDirectory();
     }

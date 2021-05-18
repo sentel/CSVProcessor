@@ -18,7 +18,7 @@
 
         ILogger GetFiles();
 
-        ILogger GetSiteNumber();
+        ILogger GetSiteNumbers();
 
         ILogger SetAttemptsFile();
 

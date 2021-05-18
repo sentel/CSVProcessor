@@ -71,7 +71,7 @@ namespace CSVProcessor.Database.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.10.50;Initial Catalog=Centile;Persist Security Info=True;User" +
-            " ID=sa")]
+            " ID=sa;Password=adminTEM6090")]
         public string CentileConnectionString1 {
             get {
                 return ((string)(this["CentileConnectionString1"]));

@@ -7,7 +7,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace CSVProcessor.Business
@@ -50,11 +49,11 @@ namespace CSVProcessor.Business
             var isConnected = scriptProcessor.ConnectToFs01(curlDetails);
             if (isConnected)
             {
-                logger.Success = $"{Index}:\tConnection to FS01 created";
+                logger.Success = $"{Index}:\tConnection to FS01 created.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tConnection to FS01 no created";
+                logger.Error = $"{Index}:\tConnection to FS01 no created.\n";
             }
             var state = GetLoggerState();
             logger.AddLog(state);
@@ -78,11 +77,11 @@ namespace CSVProcessor.Business
 
             if (isLong)
             {
-                logger.Success = $"{Index}:\tSession id retrieved.";
+                logger.Success = $"{Index}:\tSession id retrieved.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tSession id not retrieved.";
+                logger.Error = $"{Index}:\tSession id not retrieved.\n";
             }
 
             var state = GetLoggerState();
@@ -101,12 +100,12 @@ namespace CSVProcessor.Business
             }
             if (string.IsNullOrEmpty(result) || result.ContainsHtmlTag())
             {
-                logger.Error = $"{Index}:\t{Domains.Count} domains found.";
+                logger.Error = $"{Index}:\t{Domains.Count} domains found.\n";
             }
             else
             {
                 Domains = result.Deserialize();
-                logger.Success = $"{Index}:\t{Domains.Count} domains retrieved.";
+                logger.Success = $"{Index}:\t{Domains.Count} domains retrieved.\n";
             }
 
             var state = GetLoggerState();
@@ -122,11 +121,11 @@ namespace CSVProcessor.Business
             var isCleaned = fileProcessor.Clean(Constants.ROOT_PATH, topLevel);
             if (isCleaned)
             {
-                logger.Success = $"{Index}:\tDirectory has been cleaned.";
+                logger.Success = $"{Index}:\tDirectory has been cleaned.\n";
             }
             else
             {
-                logger.Error = $"{Index}\t:Directory has not been cleaned.";
+                logger.Error = $"{Index}\t:Directory has not been cleaned.\n";
             }
 
             var state = GetLoggerState();
@@ -140,7 +139,7 @@ namespace CSVProcessor.Business
             var topLevel = Domains.Where(IsTopLevel).Select(domain => domain.DomainName).FirstOrDefault();
             DirectoryInfo = fileProcessor.CreateDirectory(topLevel);
 
-            logger.Success = $"{Index}:\tDirectory structure created for {curlDetails.Yesterday:d}";
+            logger.Success = $"{Index}:\tDirectory structure created for {curlDetails.Yesterday:d}\n";
             var state = GetLoggerState();
             logger.AddLog(state);
             return logger;
@@ -164,14 +163,14 @@ namespace CSVProcessor.Business
 
                 if (string.IsNullOrEmpty(file))
                 {
-                    logger.Error = $"{Index}:\tRequested file not found for '{domain.DomainName} - {domain.AdmtiveDomainId}' domain.";
+                    logger.Error = $"{Index}:\tRequested file not found for '{domain.DomainName} - {domain.AdmtiveDomainId}' domain.\n";
                     var state = GetLoggerState();
                     logger.AddLog(state);
                     logger.Error = "";
                 }
                 else
                 {
-                    logger.Success = $"{Index}:\tDownload file requested for '{domain.DomainName} - {domain.AdmtiveDomainId}' domain";
+                    logger.Success = $"{Index}:\tDownload file requested for '{domain.DomainName} - {domain.AdmtiveDomainId}' domain.\n";
                     DomainsWithFiles.Add(domain);
                     var state = GetLoggerState();
                     logger.AddLog(state);
@@ -182,17 +181,17 @@ namespace CSVProcessor.Business
             return logger;
         }
 
-        public ILogger GetSiteNumber()
+        public ILogger GetSiteNumbers()
         {
             Index++;
             curlDetails.SiteNumbers = databaseLogic.GetSiteNumbers(DomainsWithFiles).ToList();
             if (curlDetails.SiteNumbers.Any())
             {
-                logger.Success = $"{Index}:\tSite numbers {string.Join(", ", curlDetails.SiteNumbers)} is retrieved.";
+                logger.Success = $"{Index}:\tSite numbers {string.Join(", ", curlDetails.SiteNumbers)} is retrieved.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tSite number {string.Join(",", curlDetails.SiteNumbers)} is not retrieved.";
+                logger.Error = $"{Index}:\tSite number {string.Join(",", curlDetails.SiteNumbers)} is not retrieved.\n";
             }
 
             var state = GetLoggerState();
@@ -219,7 +218,7 @@ namespace CSVProcessor.Business
                     File.AppendAllText(curlDetails.AttemptsFile, Constants.SetAttemptText(curlDetails), Encoding.UTF8);
                 }
 
-                logger.Success = $"{Index}:\tAttempt for downloading file for {domain.AdmtiveDomainId} domain was done.";
+                logger.Success = $"{Index}:\tAttempt for downloading file for {domain.AdmtiveDomainId} domain was done.\n";
                 var state = GetLoggerState();
                 logger.AddLog(state);
             }
@@ -244,7 +243,7 @@ namespace CSVProcessor.Business
 
                 curlDetails.Attempts.Add(domain.AdmtiveDomainId, count);
 
-                var message = $"{Index}:\t{count} attempts were done for downloading file for '{domain.AdmtiveDomainId}'.";
+                var message = $"{Index}:\t{count} attempts were done for downloading file for '{domain.AdmtiveDomainId}'.\n";
                 if (Constants.EVEN.Contains(count))
                 {
                     logger.Success = message;
@@ -286,11 +285,11 @@ namespace CSVProcessor.Business
                 emailProcessor.SendEmail(emailDetails, BrandingDictionary);
                 if (emailProcessor.IsSent)
                 {
-                    logger.Success = $"{Index}:\tEmails sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.";
+                    logger.Success = $"{Index}:\tEmails sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.\n";
                 }
                 else
                 {
-                    logger.Error = $"{Index}:\tEmails were not sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.";
+                    logger.Error = $"{Index}:\tEmails were not sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.\n";
                 }
             }
             else if (!DomainsWithFiles.Any())
@@ -312,23 +311,23 @@ namespace CSVProcessor.Business
                         emailProcessor.SendEmail(emailDetails, BrandingDictionary);
                         if (emailProcessor.IsSent)
                         {
-                            logger.Success = $"{Index}:\tEmails sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.";
+                            logger.Success = $"{Index}:\tEmails sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.\n";
                         }
                         else
                         {
-                            logger.Error = $"{Index}:\tEmails were not sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.";
+                            logger.Error = $"{Index}:\tEmails were not sent to {string.Join(" ", emailDetails.ToEmails)} for '{curlDetails.DomainId}' domain.\n";
                         }
                     }
                     if (Constants.ODD.Contains(attempts))
                     {
-                        logger.Error = $"{Index}:\tNo emails is about to be send for '{curlDetails.DomainId}' domain.";
+                        logger.Error = $"{Index}:\tNo emails is about to be send for '{curlDetails.DomainId}' domain.\n";
                     }
                 }
             }
             else
             {
                 Index++;
-                logger.Error = $"{Index}:\tNo emails needs to be send for '{curlDetails.DomainId}' domain.";
+                logger.Error = $"{Index}:\tNo emails needs to be send for '{curlDetails.DomainId}' domain.\n";
             }
 
 
@@ -354,17 +353,17 @@ namespace CSVProcessor.Business
             Index++;
             if (Constants.EVEN[0] == count)
             {
-                logger.Success = $"{Index}:\t{Constants.EVEN[0]} emails has been sent to the user!";
+                logger.Success = $"{Index}:\t{Constants.EVEN[0]} emails has been sent to the user.\n";
                 logger.AddLog(true);
             }
             else if (Constants.ODD[0] == count)
             {
-                logger.Error = $"{Index}:\t{Constants.ODD[0]} email has been sent to the user!";
+                logger.Error = $"{Index}:\t{Constants.ODD[0]} email has been sent to the user.\n";
                 logger.AddLog(false);
             }
             else
             {
-                logger.Error = $"{Index}:\tNo files has been set to send emails!";
+                logger.Error = $"{Index}:\tNo files has been set to send emails.\n";
                 logger.AddLog(false);
             }
 
@@ -385,13 +384,13 @@ namespace CSVProcessor.Business
                     curlDetails.DomainId = domain.AdmtiveDomainId;
                     foreach (var networkFile in curlDetails.NetworkFiles)
                     {
-                        logger.Success += $"{Index}:\tOriginal file(s) '{networkFile}' already downloaded for '{curlDetails.DomainId}'.";
+                        logger.Success += $"{Index}:\tOriginal file(s) '{networkFile}' already downloaded for '{curlDetails.DomainId}'.\n";
                     }
                 }
             }
             else
             {
-                logger.Error = $"{Index}:\tNo original files found on '{Constants.UncPaths[1]}' for '{curlDetails.DomainId}' domain.";
+                logger.Error = $"{Index}:\tNo original files found on '{Constants.UncPaths[1]}' for '{curlDetails.DomainId}' domain.\n";
             }
 
             var state = GetLoggerState();
@@ -413,11 +412,11 @@ namespace CSVProcessor.Business
                 {
                     if (!string.IsNullOrEmpty(file))
                     {
-                        logger.Success += $"{Index}:\t{file.GetAfter("\\")} file have been renamed.\r\n";
+                        logger.Success += $"{Index}:\t{file.GetAfter("\\")} file have been renamed.\n";
                     }
                     else
                     {
-                        logger.Error += $"{Index}:\t{file.GetAfter("\\")} file have not been renamed.";
+                        logger.Error += $"{Index}:\t{file.GetAfter("\\")} file have not been renamed.\n";
                     }
                 }
             }
@@ -438,7 +437,7 @@ namespace CSVProcessor.Business
             var timer = new Timer(2000);
             timer.Elapsed += (sender, e) => Delay();
             timer.Start();
-            logger.Success = $"{Index}:\t{timer.Interval} (in milliseconds) has been set.";
+            logger.Success = $"{Index}:\t{timer.Interval} (in milliseconds) has been set.\n";
             var state = GetLoggerState();
             logger.AddLog(state);
             return logger;
@@ -453,21 +452,21 @@ namespace CSVProcessor.Business
         {
             Index++;
 
-            var files = fileProcessor.MoveAllFiles(DirectoryInfo, curlDetails)
-                       .Select(it => it)
-                       .ToList();
+            Files = fileProcessor.MoveAllFiles(DirectoryInfo, curlDetails)
+                                              .Select(it => it)
+                                              .ToList();
 
-            if (files.Any())
+            if (Files.Any())
             {
-                foreach (var file in files)
+                foreach (var file in Files)
                 {
                     if (!string.IsNullOrEmpty(file))
                     {
-                        logger.Success += $"{Index}:\tFile {file.GetAfter("\\")} has been moved in order to be processed.";
+                        logger.Success += $"{Index}:\tFile {file.GetAfter("\\")} has been moved in order to be processed.\n";
                     }
                     else
                     {
-                        logger.Error += $"{Index}:\tFile {file.GetAfter("\\")} has not been moved and it won't be processed.";
+                        logger.Error += $"{Index}:\tFile {file.GetAfter("\\")} has not been moved and it won't be processed.\n";
                     }
                 }
             }
@@ -489,21 +488,21 @@ namespace CSVProcessor.Business
             var isUpdated = databaseLogic.UpdateBackendAdmin(Domains);
             if (isUpdated)
             {
-                logger.Success = $"{Index}:\tBackendAdmin database updated.";
+                logger.Success = $"{Index}:\tBackendAdmin database updated.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tBackendAdmin database has not being updated.";
+                logger.Error = $"{Index}:\tBackendAdmin database has not being updated.\n";
             }
 
             isUpdated = databaseLogic.UpdateCentile(Domains);
             if (isUpdated)
             {
-                logger.Success = $"{Index}:\tCentile database updated.";
+                logger.Success = $"{Index}:\tCentile database updated.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tCentile database has not being updated.";
+                logger.Error = $"{Index}:\tCentile database has not being updated.\n";
             }
 
             var state = GetLoggerState();
@@ -514,14 +513,14 @@ namespace CSVProcessor.Business
         public ILogger AddJob()
         {
             Index++;
-            var isAdded = databaseLogic.AddJob(DomainsWithFiles);
+            var isAdded = databaseLogic.AddJob(Files);
             if (isAdded)
             {
-                logger.Success = $"{Index}:\tJob added.";
+                logger.Success = $"{Index}:\tJob added.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tNo jobs added.";
+                logger.Error = $"{Index}:\tNo jobs added.\n";
             }
 
             var state = GetLoggerState();
@@ -535,11 +534,11 @@ namespace CSVProcessor.Business
             var isUpdated = databaseLogic.UpdateExtensionDirectory();
             if (isUpdated)
             {
-                logger.Success = $"{Index}:\tExtension Directory updated.";
+                logger.Success = $"{Index}:\tExtension Directory updated.\n";
             }
             else
             {
-                logger.Error = $"{Index}:\tExtension Directory is not updated";
+                logger.Error = $"{Index}:\tExtension Directory is not updated.\n";
             }
 
             var state = GetLoggerState();
@@ -556,6 +555,8 @@ namespace CSVProcessor.Business
         private DirectoryInfo DirectoryInfo { get; set; }
 
         private List<AdministrativeDomain> DomainsWithFiles { get; set; }
+
+        private List<string> Files { get; set; }
 
         private int Index { get; set; }
 

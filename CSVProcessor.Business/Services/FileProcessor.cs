@@ -28,12 +28,14 @@ namespace CSVProcessor.Business.Services
                        : new List<string>();
         }
 
-        public bool Clean(string rootPath,string topLevel)
+        public bool Clean(string rootPath, string topLevel)
         {
             var fullPath = Path.Combine(rootPath, topLevel);
             var doesExists = Directory.Exists(fullPath);
-            if (!doesExists) 
+            if (!doesExists)
+            {
                 return false;
+            }
 
             var files = Directory.GetFiles(fullPath);
             foreach (var file in files)
@@ -90,7 +92,9 @@ namespace CSVProcessor.Business.Services
 
         public IEnumerable<string> MoveAllFiles(DirectoryInfo directory, CurlDetails details)
         {
-            var currentFiles = Directory.EnumerateFiles($"{Constants.ROOT_PATH}\\{directory.Name}", "*.csv", SearchOption.TopDirectoryOnly).ToList();
+            var currentFiles = Directory.EnumerateFiles($"{Constants.ROOT_PATH}\\{directory.Name}", "*.csv", SearchOption.TopDirectoryOnly)
+                                        .Where(IsNotEmpty)
+                                        .ToList();
             if (!currentFiles.Any())
             {
                 return currentFiles;
@@ -98,12 +102,14 @@ namespace CSVProcessor.Business.Services
 
             foreach (var currentFile in currentFiles)
             {
-                foreach (var siteNumber in details.SiteNumbers.Where(siteNumber => currentFile.GetAfter("\\").StartsWith(siteNumber.ToString()) && IsNotEmpty(currentFile)))
+                foreach (var siteNumber in details.SiteNumbers.Where(siteNumber => currentFile.GetAfter("\\").StartsWith(siteNumber.ToString())))
                 {
                     File.Copy(currentFile, Constants.UncPaths[0] + "\\" + currentFile.GetAfter("\\"), true);
 
-                    if (!Directory.Exists($"{Constants.UncPaths[1]}\\{siteNumber}")) 
+                    if (!Directory.Exists($"{Constants.UncPaths[1]}\\{siteNumber}"))
+                    {
                         Directory.CreateDirectory($"{Constants.UncPaths[1]}\\{siteNumber}");
+                    }
 
                     File.Copy(currentFile, Constants.UncPaths[1] + $"\\{siteNumber}\\" + currentFile.GetAfter("\\"), true);
                 }
