@@ -70,7 +70,7 @@ namespace CSVProcessor.Database
 
 
             var unitTypes = details.UnitType.GetUnitTypes();
-            var dbUnitType = unitTypes.FirstOrDefault(it => it.UnitType_Name == dbCompany.Company_Name || it.UnitType_Name == "Centile");
+            var dbUnitType = unitTypes.FirstOrDefault(it => it.UnitType_Name == dbCompany.Company_Name || it.UnitType_Name == "Enreach");
             if (dbUnitType == null)
             {
                 dbUnitType = details.UnitType.InsertUniType(dbCompany.Company_Name);
@@ -194,7 +194,7 @@ namespace CSVProcessor.Database
         public bool AddJob(List<string> files)
         {
             var jobs = files
-               .Select(file => details.Site.GetAdminSites().FirstOrDefault(it => it.tbl_SiteId.Equals(int.Parse(file.GetBetween("\\","--")))))
+               .Select(file => details.Site.GetAdminSites().FirstOrDefault(it => it.tbl_SiteId.Equals(int.Parse(file.GetBetween("\\", "--")))))
                .Select(dbSite => new
                {
                    dbSite,
